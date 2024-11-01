@@ -70,4 +70,17 @@ const registerHotel = asyncHandler(async (req, res) => {
     throw new Error("Invalid hotel data");
   }
 });
-export { registerHotel };
+
+const deleteHotelById = asyncHandler(async (req, res) => {
+  try {
+    const hotel = await Hotel.findByIdAndDelete(req.params.id);
+    if (!hotel) {
+      res.status(404);
+      throw new Error("Restaurant not found");
+    }
+    res.status(200).json({ msg: "Restaurant deleted successfully" });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+export { registerHotel, deleteHotelById };
