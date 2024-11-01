@@ -83,4 +83,18 @@ const deleteHotelById = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
-export { registerHotel, deleteHotelById };
+
+const getRestaurantProfile = asyncHandler(async (req, res) => {
+  try {
+    const hotel = await Hotel.findById(req.hotel._id);
+    if (!hotel) {
+      res.status(404);
+      throw new Error("Restaurant not found");
+    }
+    res.json(hotel);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+export { registerHotel, deleteHotelById, getRestaurantProfile };
